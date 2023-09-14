@@ -28,10 +28,8 @@ export default function PokemonDetailsPage() {
       <Head>{pokemon && <title>{`${pokemon.name} - Pokedex`}</title>}</Head>
 
       <div className="d-flex flex-column align-items-center">
-        <p>
-          <Link href="/" className="link-light">
-            ← Pokedex
-          </Link>
+        <p onClick={() => router.back()} className="link-light">
+          ← Pokedex
         </p>
         {pokemonLoading && <Spinner animation="grow" />}
         {pokemon === null && <p>Pokemon not found</p>}

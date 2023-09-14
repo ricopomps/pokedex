@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 This app is a pokedex, the base pokedex was made using the following [video](https://www.youtube.com/watch?v=5a1-BuwwemY&t=3941s) from Coding in Flow
 
-Tags => #NextJs #React #typescript #Swr #bootstrap #vercel
+Tags => #NextJs #React #typescript #Swr #bootstrap #vercel #mutate
 
 [Deployed at vercel](https://pokedex-tan-chi.vercel.app/)
 

@@ -1,6 +1,10 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-This app is a pokedex, the base pokedex was made using the following video from Coding in Flow : (https://www.youtube.com/watch?v=5a1-BuwwemY&t=3941s)
+This app is a pokedex, the base pokedex was made using the following [video](https://www.youtube.com/watch?v=5a1-BuwwemY&t=3941s) from Coding in Flow
+
+Tags => #NextJs #React #typescript #Swr #bootstrap #vercel
+
+[Deployed at vercel](https://pokedex-tan-chi.vercel.app/)
 
 ## Getting Started
 

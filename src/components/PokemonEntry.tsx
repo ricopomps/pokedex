@@ -18,12 +18,14 @@ export default function PokemonEntry({ name }: PokemonEntryProps) {
         {pokemon && (
           <div className={styles.card}>
             <h1 className="text-center text-capitalize">{pokemon.name}</h1>
-            <Image
-              src={pokemon.sprites.other["official-artwork"].front_default}
-              alt={`Pokemon: ${pokemon.name}`}
-              width={200}
-              height={200}
-            />
+            {pokemon.sprites.other["official-artwork"].front_default && (
+              <Image
+                src={pokemon.sprites.other["official-artwork"].front_default}
+                alt={`Pokemon: ${pokemon.name}`}
+                width={200}
+                height={200}
+              />
+            )}
           </div>
         )}
       </div>

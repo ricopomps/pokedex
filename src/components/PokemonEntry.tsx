@@ -10,6 +10,7 @@ interface PokemonEntryProps {
 
 export default function PokemonEntry({ name }: PokemonEntryProps) {
   const { pokemon, pokemonLoading } = usePokemon(name);
+  if (!pokemon) return;
 
   return (
     <Link href={`/${name}`}>
@@ -18,9 +19,9 @@ export default function PokemonEntry({ name }: PokemonEntryProps) {
         {pokemon && (
           <div className={styles.card}>
             <h1 className="text-center text-capitalize">{pokemon.name}</h1>
-            {pokemon.sprites.other["official-artwork"].front_default && (
+            {pokemon.sprites.baseImage && (
               <Image
-                src={pokemon.sprites.other["official-artwork"].front_default}
+                src={pokemon.sprites.baseImage}
                 alt={`Pokemon: ${pokemon.name}`}
                 width={200}
                 height={200}

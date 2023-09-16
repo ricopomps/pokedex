@@ -2,16 +2,19 @@
 
 import { useState } from "react";
 import PokemonSpritesToggleButton from "./PokemonSpritesToggleButton";
-import { Pokemon } from "@/models/Pokemon";
+import { Sprites } from "@/models/Pokemon";
 import Image from "next/image";
-
 interface PokemonImageProps {
-  pokemon: Pokemon;
+  pokemonName: string;
+  pokemonSprites: Sprites;
 }
 
-export default function PokemonImage({ pokemon }: PokemonImageProps) {
+export default function PokemonImage({
+  pokemonName,
+  pokemonSprites,
+}: PokemonImageProps) {
   const [currentImage, setCurrentImage] = useState(
-    pokemon.sprites.baseImage || ""
+    pokemonSprites.baseImage || ""
   );
 
   function handleChangeCurrentImage(image: string) {
@@ -22,14 +25,14 @@ export default function PokemonImage({ pokemon }: PokemonImageProps) {
   return (
     <div>
       <PokemonSpritesToggleButton
-        pokemon={pokemon}
+        pokemonSprites={pokemonSprites}
         changeCurrentImage={handleChangeCurrentImage}
         currentImage={currentImage}
       />
       {currentImage && (
         <Image
           src={currentImage}
-          alt={`Pokemon: ${pokemon.name}`}
+          alt={`Pokemon: ${pokemonName}`}
           width={400}
           height={400}
         />

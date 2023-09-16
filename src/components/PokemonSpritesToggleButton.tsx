@@ -1,37 +1,52 @@
 "use client";
 
-import { Pokemon } from "@/models/Pokemon";
+import { Sprites } from "@/models/Pokemon";
 import styles from "@/styles/PokemonSpritesToggleButton.module.css";
+import shinyButtonDark from "@/assets/iconShinyDark.png";
+import shinyButtonLight from "@/assets/iconShinyLigth.png";
+import Image from "next/image";
 
 interface PokemonSpritesToggleButtonProps {
-  pokemon: Pokemon;
+  pokemonSprites: Sprites;
   changeCurrentImage: (image: string) => void;
   currentImage: string;
 }
 export default function PokemonSpritesToggleButton({
-  pokemon,
+  pokemonSprites,
   changeCurrentImage,
   currentImage,
 }: PokemonSpritesToggleButtonProps) {
+  function handleImageChange(image: string) {
+    if (currentImage === image) {
+      const defaultImage = pokemonSprites.baseImage;
+      changeCurrentImage(defaultImage);
+      return;
+    }
+    changeCurrentImage(image);
+  }
+
   return (
     <div className={styles.buttonContainer}>
-      <div
-        onClick={() => {
-          console.log("default");
-          if (pokemon.sprites.baseImage == currentImage) return;
-          changeCurrentImage(pokemon.sprites.baseImage);
-        }}
-      >
-        default
-      </div>
-      <div
-        onClick={() => {
-          console.log("shiny");
-          if (pokemon.sprites.shiny == currentImage) return;
-          changeCurrentImage(pokemon.sprites.shiny);
-        }}
-      >
-        shiny
+      <div onClick={() => handleImageChange(pokemonSprites.shiny)}>
+        <span title="Shiny">
+          {currentImage === pokemonSprites.shiny ? (
+            <Image
+              src={shinyButtonDark}
+              alt="Profile picture"
+              width={40}
+              height={40}
+              className={`${styles.icon} ${styles.iconSelected}`}
+            />
+          ) : (
+            <Image
+              src={shinyButtonLight}
+              alt="Profile picture"
+              width={40}
+              height={40}
+              className={`${styles.icon}`}
+            />
+          )}
+        </span>
       </div>
     </div>
   );

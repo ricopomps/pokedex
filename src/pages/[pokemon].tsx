@@ -35,7 +35,10 @@ export default function PokemonDetailsPage() {
         {pokemon && (
           <>
             <h1 className="text-center text-capitalize">{pokemon.name}</h1>
-            <PokemonImage pokemon={pokemon} />
+            <PokemonImage
+              pokemonSprites={pokemon.sprites}
+              pokemonName={pokemonName}
+            />
             <div className="d-inline-block mt-2">
               <div>
                 <strong>Types:</strong>{" "}

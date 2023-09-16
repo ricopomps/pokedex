@@ -111,12 +111,54 @@ export async function findPokemon(
   };
 }
 
+function findPokemonInList(
+  pokemonList: { name: string; url: string }[],
+  name: string,
+  page: number,
+  pageSize: number = 12
+): PokemonPage {
+  const resultsFiltered = pokemonList.filter((pokemon) =>
+    pokemon.name.includes(name)
+  );
+
+  const startIndex = (page - 1) * pageSize;
+  const endIndex = startIndex + pageSize + 1;
+
+  const paginatedResults = resultsFiltered.slice(startIndex, endIndex - 1);
+
+  return {
+    previous: page > 1 ? "true" : null,
+    next: resultsFiltered.length > pageSize ? "true" : null,
+    results: paginatedResults,
+  };
+}
+
+interface PokemonByType {
+  pokemon: { pokemon: { name: string; url: string } }[];
+}
+
 export async function findPokemonByType(type: string) {
-  const response = await api.get<any>(`/type/${type}`, {
+  const response = await api.get<PokemonByType>(`/type/${type}`, {
     params: { limit: -1 },
   });
-  //treat data
-  //   return response.data.results.filter((pokemon) => pokemon.name.includes(name));
+
+  return response.data.pokemon.map((pokemon) => ({
+    name: pokemon.pokemon.name,
+    url: pokemon.pokemon.url,
+  }));
+}
+
+export async function findPokemonByNameAndType(
+  name: string,
+  page: number,
+  type?: string
+) {
+  if (type) {
+    const pokemons = await findPokemonByType(type);
+    return findPokemonInList(pokemons, name, page);
+  } else {
+    return await findPokemon(name, page);
+  }
 }
 
 export async function setNickname(pokemon: Pokemon, nickname: string) {

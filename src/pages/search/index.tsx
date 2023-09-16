@@ -8,17 +8,23 @@ import { Button, Col, Row, Spinner } from "react-bootstrap";
 export default function SearchPage() {
   const router = useRouter();
   const [search, setSearch] = useState("");
+  const [type, setType] = useState<string>();
   const [pokemonData, setPokemonData] = useState<PokemonPage>();
   const [isLoading, setIsLoading] = useState(false);
   const page = parseInt(router.query.page?.toString() || "1");
   const searchQuery = router.query.searchQuery?.toString() || "";
+  const typeQuery = router.query.typeQuery?.toString();
 
   useEffect(() => {
     async function getData() {
       try {
         setIsLoading(true);
         setSearch(searchQuery);
-        const data = await PokemonApi.findPokemon(searchQuery, page);
+        const data = await PokemonApi.findPokemonByNameAndType(
+          searchQuery,
+          page,
+          typeQuery
+        );
         setPokemonData(data);
       } catch (error) {
       } finally {
@@ -26,7 +32,7 @@ export default function SearchPage() {
       }
     }
     getData();
-  }, [page, searchQuery]);
+  }, [page, searchQuery, typeQuery]);
 
   if (isLoading)
     return <Spinner animation="border" className="d-block m-auto" />;
@@ -40,9 +46,17 @@ export default function SearchPage() {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
+      <input
+        type="text"
+        value={type}
+        onChange={(e) => setType(e.target.value)}
+      />
+
       <button
         onClick={() =>
-          router.push({ query: { ...router.query, searchQuery: search } })
+          router.push({
+            query: { ...router.query, searchQuery: search, typeQuery: type },
+          })
         }
       >
         search

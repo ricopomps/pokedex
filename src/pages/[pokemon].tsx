@@ -6,6 +6,7 @@ import { FormEvent } from "react";
 import * as PokemonApi from "@/network/pokemonApi";
 import PokemonImage from "@/components/PokemonImage";
 import Chart from "@/components/Chart";
+import styles from "@/styles/Pokemon.module.css";
 
 export default function PokemonDetailsPage() {
   const router = useRouter();
@@ -42,9 +43,16 @@ export default function PokemonDetailsPage() {
               pokemonName={pokemonName}
             />
             <div className="d-inline-block mt-2">
-              <div>
+              <div className={styles.typesContainer}>
                 <strong>Types:</strong>{" "}
-                {pokemon.types.map((type) => type.name).join(", ")}
+                {pokemon.types.map((type) => (
+                  <div
+                    className={`${styles.typeBackground} ${styles[type.name]}`}
+                    key={type.name}
+                  >
+                    {type.name}
+                  </div>
+                ))}
               </div>
               <div>
                 <strong>Height:</strong> {pokemon.height} cm

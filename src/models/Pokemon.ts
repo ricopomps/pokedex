@@ -8,7 +8,7 @@ export interface PokemonPage {
 
 export interface Pokemon {
   name: string;
-  types: Type2[];
+  types: Type[];
   weight: number;
   height: number;
   sprites: Sprites;
@@ -37,7 +37,7 @@ export interface PokemonRaw {
   species: Species;
   sprites: SpritesRaw;
   stats: Stat[];
-  types: Type[];
+  types: TypeRaw[];
   weight: number;
 }
 
@@ -348,12 +348,12 @@ export interface Stat2 {
   url: string;
 }
 
-export interface Type {
+export interface TypeRaw {
   slot: number;
-  type: Type2;
+  type: Type;
 }
 
-export interface Type2 {
+export interface Type {
   name: string;
   url: string;
 }

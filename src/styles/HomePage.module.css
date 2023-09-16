@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mainText {
+  text-align: center;
+  flex-grow: 1;
+}
+
+.iconText {
+  align-items: center;
+}
+
+.searchText {
+  margin: 0;
+}
+
+.grow {
+  flex: 1;
+}

@@ -3,6 +3,9 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import * as PokemonApi from "@/network/pokemonApi";
 import { Button, Col, Row, Spinner } from "react-bootstrap";
+import styles from "@/styles/HomePage.module.css";
+import magnifyingGlass from "@/assets/magnifyingGlass.png";
+import Image from "next/image";
 
 export default function Home() {
   const router = useRouter();
@@ -17,10 +20,25 @@ export default function Home() {
 
   return (
     <div>
-      <h1 className="text-center mb-4">Gotta cache &apos;em all</h1>
-      <p onClick={() => router.push("/search")} className="link-light">
-        Search →
-      </p>
+      <div className={styles.container}>
+        <div className={styles.grow}></div>
+        <h1 className={`text-center mb-4 ${styles.mainText}`}>
+          Gotta cache &apos;em all
+        </h1>
+        <div
+          onClick={() => router.push("/search")}
+          className={`d-flex justify-content-center ${styles.iconText} ${styles.grow}`}
+        >
+          <p className={`link-light ${styles.searchText}`}>Search →</p>
+          <Image
+            src={magnifyingGlass}
+            alt="search"
+            width={40}
+            height={40}
+            className={styles.icon}
+          />
+        </div>
+      </div>
       <Row xs={1} sm={2} lg={3} xl={4} className="g-4">
         {data?.results.map((pokemonEntry) => (
           <Col key={pokemonEntry.name}>

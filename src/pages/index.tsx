@@ -18,6 +18,9 @@ export default function Home() {
   return (
     <div>
       <h1 className="text-center mb-4">Gotta cache &apos;em all</h1>
+      <p onClick={() => router.push("/search")} className="link-light">
+        Search →
+      </p>
       <Row xs={1} sm={2} lg={3} xl={4} className="g-4">
         {data?.results.map((pokemonEntry) => (
           <Col key={pokemonEntry.name}>

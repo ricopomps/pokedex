@@ -32,7 +32,7 @@ export default function SearchPage() {
         setIsLoading(false);
       }
     }
-    getData();
+    if (searchQuery || typeQuery) getData();
   }, [page, searchQuery, typeQuery]);
 
   if (isLoading)
@@ -41,6 +41,9 @@ export default function SearchPage() {
   return (
     <div>
       <h1 className="text-center mb-4">Gotta cache &apos;em all</h1>
+      <p onClick={() => router.push("/")} className="link-light">
+        ← Pokedex
+      </p>
       <input
         defaultValue={searchQuery}
         type="text"

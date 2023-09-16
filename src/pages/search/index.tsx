@@ -3,7 +3,9 @@ import { PokemonPage, PokemonType } from "@/models/Pokemon";
 import * as PokemonApi from "@/network/pokemonApi";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Button, Col, Row, Spinner } from "react-bootstrap";
+import { Button, Col, Form, Row, Spinner } from "react-bootstrap";
+import styles from "@/styles/SearchPage.module.css";
+import typesStyles from "@/styles/Types.module.css";
 
 export default function SearchPage() {
   const router = useRouter();
@@ -41,41 +43,57 @@ export default function SearchPage() {
   return (
     <div>
       <h1 className="text-center mb-4">Gotta cache &apos;em all</h1>
-      <p onClick={() => router.push("/")} className="link-light">
+      <p
+        onClick={() => router.push("/")}
+        className={`link-light ${styles.returnText}`}
+      >
         ← Pokedex
       </p>
-      <input
-        defaultValue={searchQuery}
-        type="text"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-      <select value={type} onChange={(e) => setType(e.target.value)}>
-        <option value={""}>Type</option>
-        {Object.values(PokemonType).map((c) => {
-          const capitalizedType = c.charAt(0).toUpperCase() + c.slice(1);
-          return (
-            <option key={c} value={c}>
-              {capitalizedType}
-            </option>
-          );
-        })}
-      </select>
+      <div className={styles.inputContainer}>
+        <Form.Control
+          defaultValue={searchQuery}
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className={styles.inputPokemon}
+        />
+        <select
+          className={`${styles.selectType} ${typesStyles[type || ""]}`}
+          value={type}
+          onChange={(e) => setType(e.target.value)}
+        >
+          <option value={""}>Type</option>
+          {Object.values(PokemonType).map((c) => {
+            const capitalizedType = c.charAt(0).toUpperCase() + c.slice(1);
+            return (
+              <option
+                key={c}
+                value={c}
+                className={`${styles.typeBackground} ${
+                  typesStyles[c.toLowerCase()]
+                }`}
+              >
+                {capitalizedType}
+              </option>
+            );
+          })}
+        </select>
 
-      <button
-        onClick={() =>
-          router.push({
-            query: {
-              ...router.query,
-              searchQuery: search,
-              typeQuery: type,
-              page: 1,
-            },
-          })
-        }
-      >
-        search
-      </button>
+        <Button
+          onClick={() =>
+            router.push({
+              query: {
+                ...router.query,
+                searchQuery: search,
+                typeQuery: type,
+                page: 1,
+              },
+            })
+          }
+        >
+          search
+        </Button>
+      </div>
       <Row xs={1} sm={2} lg={3} xl={4} className="g-4">
         {pokemonData?.results.map((pokemonEntry) => (
           <Col key={pokemonEntry.name}>

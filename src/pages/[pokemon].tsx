@@ -7,6 +7,7 @@ import * as PokemonApi from "@/network/pokemonApi";
 import PokemonImage from "@/components/PokemonImage";
 import Chart from "@/components/Chart";
 import styles from "@/styles/Pokemon.module.css";
+import typesStyles from "@/styles/Types.module.css";
 
 export default function PokemonDetailsPage() {
   const router = useRouter();
@@ -47,7 +48,9 @@ export default function PokemonDetailsPage() {
                 <strong>Types:</strong>{" "}
                 {pokemon.types.map((type) => (
                   <div
-                    className={`${styles.typeBackground} ${styles[type.name]}`}
+                    className={`${styles.typeBackground} ${
+                      typesStyles[type.name]
+                    }`}
                     key={type.name}
                   >
                     {type.name}

@@ -1,0 +1,38 @@
+.inputContainer {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.inputPokemon {
+  width: 20%;
+}
+
+.selectType {
+  width: 15%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 6px;
+  font-size: 1rem;
+  font-weight: normal;
+  color: white;
+  text-transform: capitalize;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  width: 66px;
+  text-align: center;
+  -webkit-text-stroke: 0.4px black;
+}
+
+@media (max-width: 580px) {
+  .inputPokemon {
+    width: 100%;
+  }
+}
+
+.returnText {
+  text-align: center;
+  margin: 0;
+}

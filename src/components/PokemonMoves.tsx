@@ -13,6 +13,7 @@ export default function PokemonMoves({ pokemon }: PokemonMovesProps) {
   const handleGenerationChange = (generationMoves: GenerationMoves) => {
     if (generationMoves !== selectedGeneration)
       setSelectedGeneration(generationMoves);
+    else setSelectedGeneration(null);
   };
 
   return (

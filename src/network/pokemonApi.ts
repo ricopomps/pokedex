@@ -1,13 +1,5 @@
-import {
-  Move,
-  Pokemon,
-  PokemonPage,
-  PokemonRaw,
-  StatsName,
-  StatsNameKeys,
-} from "@/models/Pokemon";
+import { Pokemon, PokemonPage, PokemonRaw } from "@/models/Pokemon";
 import api from "./axiosIntance";
-import { Charts, transformDataForChart } from "@/utils/chart";
 import { convertPokemonRaw } from "./convertPokemon";
 
 export async function getPokemon(name: string) {

@@ -6,8 +6,8 @@ import { FormEvent } from "react";
 import * as PokemonApi from "@/network/pokemonApi";
 import PokemonImage from "@/components/PokemonImage";
 import Chart from "@/components/Chart";
-import styles from "@/styles/Pokemon.module.css";
-import typesStyles from "@/styles/Types.module.css";
+import PokemonInfo from "@/components/PokemonInfo";
+import PokemonMoves from "@/components/PokemonMoves";
 
 export default function PokemonDetailsPage() {
   const router = useRouter();
@@ -43,29 +43,10 @@ export default function PokemonDetailsPage() {
               pokemonSprites={pokemon.sprites}
               pokemonName={pokemonName}
             />
-            <div className="d-inline-block mt-2">
-              <div className={styles.typesContainer}>
-                <strong>Types:</strong>{" "}
-                {pokemon.types.map((type) => (
-                  <div
-                    className={`${styles.typeBackground} ${
-                      typesStyles[type.name]
-                    }`}
-                    key={type.name}
-                  >
-                    {type.name}
-                  </div>
-                ))}
-              </div>
-              <div>
-                <strong>Height:</strong> {pokemon.height} cm
-              </div>
-              <div>
-                <strong>Weigth:</strong> {pokemon.weight} kg
-              </div>
-            </div>
+            <PokemonInfo pokemon={pokemon} />
             <h2>Stats:</h2>
             <Chart chartType="bar" data={pokemon.stats} showLabelInTitle />
+            <PokemonMoves pokemon={pokemon} />
             <Form className="mt-4" onSubmit={handleSubmitNickname}>
               <Form.Group controlId="pokemon-nickname-input" className="mb-3">
                 <Form.Label>Give this Pokemon a nickname</Form.Label>

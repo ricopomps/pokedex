@@ -13,6 +13,7 @@ export interface Pokemon {
   height: number;
   sprites: Sprites;
   stats: ChartData;
+  moves: GenerationMoves[];
 }
 
 export interface Sprites {
@@ -391,3 +392,8 @@ export enum PokemonType {
 }
 
 export type PokemonTypeKeys = keyof typeof PokemonType;
+
+export interface GenerationMoves {
+  generation: string;
+  moves: (Move & { learnedAtLevel: number })[];
+}

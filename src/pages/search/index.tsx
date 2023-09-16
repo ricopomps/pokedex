@@ -1,5 +1,5 @@
 import PokemonEntry from "@/components/PokemonEntry";
-import { PokemonPage } from "@/models/Pokemon";
+import { PokemonPage, PokemonType } from "@/models/Pokemon";
 import * as PokemonApi from "@/network/pokemonApi";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -20,6 +20,7 @@ export default function SearchPage() {
       try {
         setIsLoading(true);
         setSearch(searchQuery);
+        setType(typeQuery);
         const data = await PokemonApi.findPokemonByNameAndType(
           searchQuery,
           page,
@@ -46,16 +47,27 @@ export default function SearchPage() {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-      <input
-        type="text"
-        value={type}
-        onChange={(e) => setType(e.target.value)}
-      />
+      <select value={type} onChange={(e) => setType(e.target.value)}>
+        <option value={""}>Type</option>
+        {Object.values(PokemonType).map((c) => {
+          const capitalizedType = c.charAt(0).toUpperCase() + c.slice(1);
+          return (
+            <option key={c} value={c}>
+              {capitalizedType}
+            </option>
+          );
+        })}
+      </select>
 
       <button
         onClick={() =>
           router.push({
-            query: { ...router.query, searchQuery: search, typeQuery: type },
+            query: {
+              ...router.query,
+              searchQuery: search,
+              typeQuery: type,
+              page: 1,
+            },
           })
         }
       >

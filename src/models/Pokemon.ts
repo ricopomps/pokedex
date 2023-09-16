@@ -1,3 +1,5 @@
+import { ChartData } from "@/utils/chart";
+
 export interface PokemonPage {
   results: { name: string }[];
   next: string | null;
@@ -10,6 +12,7 @@ export interface Pokemon {
   weight: number;
   height: number;
   sprites: Sprites;
+  stats: ChartData;
 }
 
 export interface Sprites {
@@ -354,3 +357,14 @@ export interface Type2 {
   name: string;
   url: string;
 }
+
+export enum StatsName {
+  hp = "Hp",
+  attack = "Attack",
+  defense = "Defense",
+  "special-attack" = "Special attack",
+  "special-defense" = "Special defense",
+  speed = "Speed",
+}
+
+export type StatsNameKeys = keyof typeof StatsName;

@@ -1,5 +1,12 @@
-import { Pokemon, PokemonPage, PokemonRaw } from "@/models/Pokemon";
+import {
+  Pokemon,
+  PokemonPage,
+  PokemonRaw,
+  StatsName,
+  StatsNameKeys,
+} from "@/models/Pokemon";
 import api from "./axiosIntance";
+import { Charts, transformDataForChart } from "@/utils/chart";
 
 function convertPokemonRaw(pokemonRaw: PokemonRaw): Pokemon {
   const pokemon: Pokemon = {
@@ -14,7 +21,20 @@ function convertPokemonRaw(pokemonRaw: PokemonRaw): Pokemon {
       baseImage: pokemonRaw.sprites.other["official-artwork"].front_default,
       shiny: pokemonRaw.sprites.other["official-artwork"].front_shiny,
     },
+    stats: transformDataForChart(
+      [
+        {
+          label: "STATS",
+          values: pokemonRaw.stats.map((stat) => ({
+            label: StatsName[stat.stat.name as StatsNameKeys],
+            value: stat.base_stat,
+          })),
+        },
+      ],
+      Charts.stats
+    ),
   };
+
   return pokemon;
 }
 

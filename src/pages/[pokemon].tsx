@@ -5,6 +5,8 @@ import usePokemon from "@/hooks/usePokemon";
 import { FormEvent } from "react";
 import * as PokemonApi from "@/network/pokemonApi";
 import PokemonImage from "@/components/PokemonImage";
+import Chart from "@/components/Chart";
+
 export default function PokemonDetailsPage() {
   const router = useRouter();
   const pokemonName = router.query.pokemon?.toString() || "";
@@ -51,6 +53,8 @@ export default function PokemonDetailsPage() {
                 <strong>Weigth:</strong> {pokemon.weight} kg
               </div>
             </div>
+            <h2>Stats:</h2>
+            <Chart chartType="bar" data={pokemon.stats} showLabelInTitle />
             <Form className="mt-4" onSubmit={handleSubmitNickname}>
               <Form.Group controlId="pokemon-nickname-input" className="mb-3">
                 <Form.Label>Give this Pokemon a nickname</Form.Label>

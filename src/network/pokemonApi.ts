@@ -1,4 +1,5 @@
 import {
+  Move,
   Pokemon,
   PokemonPage,
   PokemonRaw,
@@ -7,6 +8,11 @@ import {
 } from "@/models/Pokemon";
 import api from "./axiosIntance";
 import { Charts, transformDataForChart } from "@/utils/chart";
+
+interface GenerationMoves {
+  generation: string;
+  moves: (Move & { learnedAtLevel: number })[];
+}
 
 function convertPokemonRaw(pokemonRaw: PokemonRaw): Pokemon {
   const pokemon: Pokemon = {
@@ -35,6 +41,35 @@ function convertPokemonRaw(pokemonRaw: PokemonRaw): Pokemon {
     ),
   };
 
+  const movesByGeneration: Record<string, GenerationMoves> = {};
+  for (const moveData of pokemonRaw.moves) {
+    for (const versionGroupDetail of moveData.version_group_details) {
+      if (versionGroupDetail.move_learn_method.name === "level-up") {
+        const generationName = versionGroupDetail.version_group.name;
+        const { name: moveName, url } = moveData.move;
+
+        if (!movesByGeneration[generationName]) {
+          movesByGeneration[generationName] = {
+            generation: generationName,
+            moves: [],
+          };
+        }
+
+        movesByGeneration[generationName].moves.push({
+          name: moveName,
+          url,
+          learnedAtLevel: versionGroupDetail.level_learned_at,
+        });
+      }
+    }
+  }
+
+  for (const generationMoves of Object.values(movesByGeneration)) {
+    generationMoves.moves.sort((a, b) => a.learnedAtLevel - b.learnedAtLevel);
+  }
+
+  const movesList = Object.values(movesByGeneration);
+
   return pokemon;
 }
 
@@ -49,6 +84,39 @@ export async function getPokemonPage(page: number) {
     params: { limit: pageSize, offset: pageSize * (page - 1) },
   });
   return response.data;
+}
+
+export async function findPokemon(
+  name: string,
+  page: number,
+  pageSize: number = 12
+): Promise<PokemonPage> {
+  const response = await api.get<PokemonPage>(`/pokemon`, {
+    params: { limit: -1 },
+  });
+
+  const resultsFiltered = response.data.results.filter((pokemon) =>
+    pokemon.name.includes(name)
+  );
+
+  const startIndex = (page - 1) * pageSize;
+  const endIndex = startIndex + pageSize + 1;
+
+  const paginatedResults = resultsFiltered.slice(startIndex, endIndex - 1);
+
+  return {
+    previous: page > 1 ? "true" : null,
+    next: resultsFiltered.length > pageSize ? "true" : null,
+    results: paginatedResults,
+  };
+}
+
+export async function findPokemonByType(type: string) {
+  const response = await api.get<any>(`/type/${type}`, {
+    params: { limit: -1 },
+  });
+  //treat data
+  //   return response.data.results.filter((pokemon) => pokemon.name.includes(name));
 }
 
 export async function setNickname(pokemon: Pokemon, nickname: string) {

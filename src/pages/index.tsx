@@ -1,5 +1,4 @@
 import PokemonEntry from "@/components/PokemonEntry";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import * as PokemonApi from "@/network/pokemonApi";
@@ -9,7 +8,6 @@ export default function Home() {
   const router = useRouter();
 
   const page = parseInt(router.query.page?.toString() || "1");
-
   const { data, isLoading } = useSWR(`getPokemonPage:${page}`, () =>
     PokemonApi.getPokemonPage(page)
   );

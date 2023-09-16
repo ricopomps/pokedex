@@ -18,7 +18,6 @@ export default function PokemonImage({
   );
 
   function handleChangeCurrentImage(image: string) {
-    console.log("setCurrentImage", image);
     setCurrentImage(image);
   }
 

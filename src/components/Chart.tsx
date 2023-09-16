@@ -117,8 +117,6 @@ const Chart = ({
     },
   };
 
-  console.log("dasodadkoasd", "speed", StatsName["speed"]);
-
   if (chartType === "bar") {
     return <Bar data={data} options={options} />;
   } else if (chartType === "line") {

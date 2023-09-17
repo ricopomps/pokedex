@@ -9,6 +9,7 @@ import { transformDataForChart, Charts } from "@/utils/chart";
 
 export function convertPokemonRaw(pokemonRaw: PokemonRaw): Pokemon {
   const pokemon: Pokemon = {
+    id: pokemonRaw.id,
     name: pokemonRaw.name,
     types: pokemonRaw.types.map((typeData) => ({
       name: typeData.type.name,

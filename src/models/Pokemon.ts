@@ -7,6 +7,7 @@ export interface PokemonPage {
 }
 
 export interface Pokemon {
+  id: number;
   name: string;
   types: Type[];
   weight: number;

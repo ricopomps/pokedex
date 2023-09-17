@@ -1,13 +1,10 @@
+import { EvolutionChainRaw } from "@/models/EvolutonCain";
 import { MoveInfoRaw } from "@/models/MoveInfo";
-import {
-  GenerationMoves,
-  Pokemon,
-  PokemonPage,
-  PokemonRaw,
-} from "@/models/Pokemon";
+import { Pokemon, PokemonPage, PokemonRaw } from "@/models/Pokemon";
 import api from "./axiosIntance";
-import { convertMoveInfo } from "./convertMove";
+import { convertEvolutionChain } from "./convertEvolutionChain";
 import { convertPokemonRaw } from "./convertPokemon";
+import { convertSpecie } from "./convertSpecie";
 
 export async function getPokemon(name: string) {
   const response = await api.get<PokemonRaw>(`/pokemon/${name}`);
@@ -104,4 +101,19 @@ export async function setNickname(pokemon: Pokemon, nickname: string) {
 export async function getMoveDataRaw(moveName: string) {
   const moveDataRaw = await api.get<MoveInfoRaw>(`/move/${moveName}`);
   return moveDataRaw.data;
+}
+
+export async function getPokemonSpecies(pokemonId: number) {
+  const response = await api.get(`/pokemon-species/${pokemonId}`);
+  console.log("getPokemonSpecies", response.data);
+  return convertSpecie(response.data);
+}
+
+export async function getPokemonEvolutionChain(pokemonSpeciesId: number) {
+  const response = await api.get<EvolutionChainRaw>(
+    `/evolution-chain/${pokemonSpeciesId}`
+  );
+  console.log("getPokemonEvolutionChain", response.data);
+
+  return convertEvolutionChain(response.data);
 }

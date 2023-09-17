@@ -13,7 +13,10 @@ export default function PokemonDetailsPage() {
   const router = useRouter();
   const pokemonName = router.query.pokemon?.toString() || "";
 
-  const { pokemon, pokemonLoading, mutatePokemon } = usePokemon(pokemonName);
+  const { pokemon, pokemonLoading, mutatePokemon } = usePokemon(
+    pokemonName,
+    true
+  );
 
   async function handleSubmitNickname(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -47,7 +50,8 @@ export default function PokemonDetailsPage() {
             <h2>Stats:</h2>
             <PokemonMoves pokemon={pokemon} />
             <Chart chartType="bar" data={pokemon.stats} showLabelInTitle />
-
+            {JSON.stringify(pokemon.species)}
+            {JSON.stringify(pokemon.evolutionChain)}
             <Form className="mt-4" onSubmit={handleSubmitNickname}>
               <Form.Group controlId="pokemon-nickname-input" className="mb-3">
                 <Form.Label>Give this Pokemon a nickname</Form.Label>

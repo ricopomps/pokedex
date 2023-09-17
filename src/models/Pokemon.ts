@@ -1,4 +1,6 @@
 import { ChartData } from "@/utils/chart";
+import { EvolutionChain } from "./EvolutonCain";
+import { Specie } from "./Specie";
 
 export interface PokemonPage {
   results: { name: string }[];
@@ -15,6 +17,8 @@ export interface Pokemon {
   sprites: Sprites;
   stats: ChartData;
   moves: GenerationMoves[];
+  evolutionChain?: EvolutionChain;
+  species?: Specie;
 }
 
 export interface Sprites {

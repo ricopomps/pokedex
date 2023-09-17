@@ -33,103 +33,103 @@ export interface SpecieRaw {
   varieties: Variety[];
 }
 
-export interface Color {
+interface Color {
   name: string;
   url: string;
 }
 
-export interface EggGroup {
+interface EggGroup {
   name: string;
   url: string;
 }
 
-export interface EvolutionChain {
+interface EvolutionChain {
   url: string;
 }
 
-export interface FlavorTextEntry {
+interface FlavorTextEntry {
   flavor_text: string;
   language: Language;
   version: Version;
 }
 
-export interface Language {
+interface Language {
   name: string;
   url: string;
 }
 
-export interface Version {
+interface Version {
   name: string;
   url: string;
 }
 
-export interface Genera {
+interface Genera {
   genus: string;
   language: Language2;
 }
 
-export interface Language2 {
+interface Language2 {
   name: string;
   url: string;
 }
 
-export interface Generation {
+interface Generation {
   name: string;
   url: string;
 }
 
-export interface GrowthRate {
+interface GrowthRate {
   name: string;
   url: string;
 }
 
-export interface Habitat {
+interface Habitat {
   name: string;
   url: string;
 }
 
-export interface Name {
+interface Name {
   language: Language3;
   name: string;
 }
 
-export interface Language3 {
+interface Language3 {
   name: string;
   url: string;
 }
 
-export interface PalParkEncounter {
+interface PalParkEncounter {
   area: Area;
   base_score: number;
   rate: number;
 }
 
-export interface Area {
+interface Area {
   name: string;
   url: string;
 }
 
-export interface PokedexNumber {
+interface PokedexNumber {
   entry_number: number;
   pokedex: Pokedex;
 }
 
-export interface Pokedex {
+interface Pokedex {
   name: string;
   url: string;
 }
 
-export interface Shape {
+interface Shape {
   name: string;
   url: string;
 }
 
-export interface Variety {
+interface Variety {
   is_default: boolean;
   pokemon: Pokemon;
 }
 
-export interface Pokemon {
+interface Pokemon {
   name: string;
   url: string;
 }

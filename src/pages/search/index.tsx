@@ -34,7 +34,7 @@ export default function SearchPage() {
         setIsLoading(false);
       }
     }
-    if (searchQuery || typeQuery) getData();
+    getData();
   }, [page, searchQuery, typeQuery]);
 
   if (isLoading)

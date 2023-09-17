@@ -1,5 +1,15 @@
 export interface EvolutionChain {
   id: number;
+  firstPokemon: string;
+  firstEvolutionTrigger?: EvolutionTrigger;
+  secondPokemon?: string;
+  secondEvolutionTrigger?: EvolutionTrigger;
+  thirdPokemon?: string;
+}
+
+export interface EvolutionTrigger {
+  trigger: string;
+  minLevel: number;
 }
 
 export interface EvolutionChainRaw {
@@ -8,21 +18,21 @@ export interface EvolutionChainRaw {
   id: number;
 }
 
-export interface Chain {
+interface Chain {
   evolution_details: any[];
   evolves_to: EvolvesTo[];
   is_baby: boolean;
   species: Species3;
 }
 
-export interface EvolvesTo {
+interface EvolvesTo {
   evolution_details: EvolutionDetail[];
   evolves_to: EvolvesTo2[];
   is_baby: boolean;
   species: Species2;
 }
 
-export interface EvolutionDetail {
+interface EvolutionDetail {
   gender: any;
   held_item: any;
   item: any;
@@ -43,19 +53,19 @@ export interface EvolutionDetail {
   turn_upside_down: boolean;
 }
 
-export interface Trigger {
+interface Trigger {
   name: string;
   url: string;
 }
 
-export interface EvolvesTo2 {
+interface EvolvesTo2 {
   evolution_details: EvolutionDetail2[];
   evolves_to: any[];
   is_baby: boolean;
   species: Species;
 }
 
-export interface EvolutionDetail2 {
+interface EvolutionDetail2 {
   gender: any;
   held_item: any;
   item: any;
@@ -76,22 +86,22 @@ export interface EvolutionDetail2 {
   turn_upside_down: boolean;
 }
 
-export interface Trigger2 {
+interface Trigger2 {
   name: string;
   url: string;
 }
 
-export interface Species {
+interface Species {
   name: string;
   url: string;
 }
 
-export interface Species2 {
+interface Species2 {
   name: string;
   url: string;
 }
 
-export interface Species3 {
+interface Species3 {
   name: string;
   url: string;
 }

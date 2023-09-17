@@ -1,5 +1,5 @@
 import { ChartData } from "@/utils/chart";
-import { EvolutionChain } from "./EvolutonCain";
+import { EvolutionChain } from "./EvolutionChain";
 import { Specie } from "./Specie";
 
 export interface PokemonPage {

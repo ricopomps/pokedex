@@ -1,4 +1,4 @@
-import { EvolutionChainRaw } from "@/models/EvolutonCain";
+import { EvolutionChainRaw } from "@/models/EvolutionChain";
 import { MoveInfoRaw } from "@/models/MoveInfo";
 import { Pokemon, PokemonPage, PokemonRaw } from "@/models/Pokemon";
 import api from "./axiosIntance";

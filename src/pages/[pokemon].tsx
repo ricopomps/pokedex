@@ -8,6 +8,7 @@ import PokemonImage from "@/components/PokemonImage";
 import Chart from "@/components/Chart";
 import PokemonInfo from "@/components/PokemonInfo";
 import PokemonMoves from "@/components/PokemonMoves";
+import PokemonEvolutionChain from "@/components/PokemonEvolutionChain";
 
 export default function PokemonDetailsPage() {
   const router = useRouter();
@@ -50,8 +51,9 @@ export default function PokemonDetailsPage() {
             <h2>Stats:</h2>
             <PokemonMoves pokemon={pokemon} />
             <Chart chartType="bar" data={pokemon.stats} showLabelInTitle />
-            {JSON.stringify(pokemon.species)}
-            {JSON.stringify(pokemon.evolutionChain)}
+            {pokemon.evolutionChain && (
+              <PokemonEvolutionChain evolutionChain={pokemon.evolutionChain} />
+            )}
             <Form className="mt-4" onSubmit={handleSubmitNickname}>
               <Form.Group controlId="pokemon-nickname-input" className="mb-3">
                 <Form.Label>Give this Pokemon a nickname</Form.Label>

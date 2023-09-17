@@ -1,5 +1,12 @@
-import { Pokemon, PokemonPage, PokemonRaw } from "@/models/Pokemon";
+import { MoveInfoRaw } from "@/models/MoveInfo";
+import {
+  GenerationMoves,
+  Pokemon,
+  PokemonPage,
+  PokemonRaw,
+} from "@/models/Pokemon";
 import api from "./axiosIntance";
+import { convertMoveInfo } from "./convertMove";
 import { convertPokemonRaw } from "./convertPokemon";
 
 export async function getPokemon(name: string) {
@@ -92,4 +99,12 @@ export async function findPokemonByNameAndType(
 
 export async function setNickname(pokemon: Pokemon, nickname: string) {
   return { ...pokemon, name: nickname };
+}
+
+export async function getMoveData(
+  moveName: string,
+  generationMoves: GenerationMoves
+) {
+  const moveDataRaw = await api.get<MoveInfoRaw>(`/move/${moveName}`);
+  return convertMoveInfo(moveDataRaw.data, generationMoves);
 }

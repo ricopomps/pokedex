@@ -1,7 +1,7 @@
-import { GenerationMoves, Move, Pokemon } from "@/models/Pokemon";
+import usePokemonMoves from "@/hooks/usePokemonMoves";
+import { GenerationMoves, Pokemon } from "@/models/Pokemon";
 import { useState } from "react";
 import { Nav, Tab, Table } from "react-bootstrap";
-
 interface PokemonMovesProps {
   pokemon: Pokemon;
 }
@@ -19,6 +19,7 @@ export default function PokemonMoves({ pokemon }: PokemonMovesProps) {
   return (
     <div>
       <MovesTable
+        pokemonName={pokemon.name}
         generationMoves={pokemon.moves}
         selectedGeneration={selectedGeneration}
         handleGenerationChange={handleGenerationChange}
@@ -28,12 +29,14 @@ export default function PokemonMoves({ pokemon }: PokemonMovesProps) {
 }
 
 interface MovesTableProps {
+  pokemonName: string;
   generationMoves: GenerationMoves[];
   selectedGeneration: GenerationMoves | null;
   handleGenerationChange: (generaitonMove: GenerationMoves) => void;
 }
 
 const MovesTable: React.FC<MovesTableProps> = ({
+  pokemonName,
   generationMoves,
   selectedGeneration,
   handleGenerationChange,
@@ -52,28 +55,58 @@ const MovesTable: React.FC<MovesTableProps> = ({
           </Nav.Item>
         ))}
       </Nav>
-      <Tab.Content>
-        {selectedGeneration && (
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>Move Name</th>
-                <th>Level Learned</th>
-              </tr>
-            </thead>
-            <tbody>
-              {selectedGeneration.moves.map(
-                (move: Move & { learnedAtLevel: number }, index) => (
-                  <tr key={index}>
-                    <td>{move.name}</td>
-                    <td>{move.learnedAtLevel}</td>
-                  </tr>
-                )
-              )}
-            </tbody>
-          </Table>
-        )}
-      </Tab.Content>
+      {selectedGeneration && (
+        <MoveContent
+          pokemonName={pokemonName}
+          selectedGeneration={selectedGeneration}
+        />
+      )}
     </div>
   );
 };
+
+interface MoveContentProps {
+  pokemonName: string;
+  selectedGeneration: GenerationMoves;
+}
+
+function MoveContent({ pokemonName, selectedGeneration }: MoveContentProps) {
+  const { moves, movesLoading } = usePokemonMoves(
+    pokemonName,
+    selectedGeneration
+  );
+
+  if (movesLoading || !moves)
+    return <div>{moves ? "Loading..." : "error"}</div>;
+
+  return (
+    <Tab.Content>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Move Name</th>
+            <th>Power</th>
+            <th>Damage class</th>
+            <th>Accuracy</th>
+            <th>Type</th>
+            <th>PP</th>
+            <th>Level Learned</th>
+          </tr>
+        </thead>
+        <tbody>
+          {moves.map((move, index) => (
+            <tr key={index}>
+              <td>{move.name}</td>
+              <td>{move.power ?? "-"}</td>
+              <td>{move.damageClass}</td>
+              <td>{move.accuracy ?? "-"}</td>
+              <td>{move.type}</td>
+              <td>{move.pp}</td>
+              <td>{move.learnedAtLevel}</td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    </Tab.Content>
+  );
+}

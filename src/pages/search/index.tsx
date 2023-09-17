@@ -69,7 +69,7 @@ export default function SearchPage() {
               <option
                 key={c}
                 value={c}
-                className={`${styles.typeBackground} ${
+                className={`${typesStyles.typeBackground} ${
                   typesStyles[c.toLowerCase()]
                 }`}
               >

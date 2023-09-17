@@ -1,4 +1,4 @@
-import { MoveInfo, MoveInfoRaw } from "@/models/MoveInfo";
+import { DamageClass, MoveInfo, MoveInfoRaw } from "@/models/MoveInfo";
 import { GenerationMoves } from "@/models/Pokemon";
 export function convertMoveInfo(
   m: MoveInfoRaw,
@@ -26,7 +26,7 @@ export function convertMoveInfo(
     power: m.power,
     pp: m.pp,
     type: m.type.name,
-    damageClass: m.damage_class.name as "special" | "physical",
+    damageClass: m.damage_class.name as DamageClass,
     learnedAtLevel: getMovelearnedAtLevel(),
   };
 

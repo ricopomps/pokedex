@@ -1,5 +1,19 @@
+.typeBackground {
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 6px;
+  font-size: 1rem;
+  font-weight: normal;
+  line-height: 1.5rem;
+  color: white;
+  text-transform: capitalize;
+  width: 66px;
+  text-align: center;
+  -webkit-text-stroke: 0.4px black;
+}
+
 .normal {
-  background-color: #aa9;
+  background-color: #aa9 !important;
 }
 
 .fire {

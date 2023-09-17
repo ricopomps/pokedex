@@ -12,7 +12,9 @@ export default function PokemonInfo({ pokemon }: PokemonInfoProps) {
         <strong>Types:</strong>{" "}
         {pokemon.types.map((type) => (
           <div
-            className={`${styles.typeBackground} ${typesStyles[type.name]}`}
+            className={`${typesStyles.typeBackground} ${
+              typesStyles[type.name]
+            }`}
             key={type.name}
           >
             {type.name}

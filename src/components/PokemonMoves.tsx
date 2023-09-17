@@ -2,6 +2,9 @@ import usePokemonMoves from "@/hooks/usePokemonMoves";
 import { GenerationMoves, Pokemon } from "@/models/Pokemon";
 import { useState } from "react";
 import { Nav, Tab, Table } from "react-bootstrap";
+import typesStyles from "@/styles/Types.module.css";
+import { capitalizeFirstLetter } from "@/utils/capitalizeFirstLetter";
+import DamageClassIcon from "./DamageClassIcon";
 interface PokemonMovesProps {
   pokemon: Pokemon;
 }
@@ -80,14 +83,14 @@ function MoveContent({ pokemonName, selectedGeneration }: MoveContentProps) {
     return <div>{moves ? "Loading..." : "error"}</div>;
 
   return (
-    <Tab.Content>
-      <Table striped bordered hover>
+    <Tab.Content className={typesStyles.ground}>
+      <Table striped bordered hover className={typesStyles.ground}>
         <thead>
           <tr>
             <th>Move Name</th>
             <th>Power</th>
             <th>Damage class</th>
-            <th>Accuracy</th>
+            <th className={typesStyles.ground}>Accuracy</th>
             <th>Type</th>
             <th>PP</th>
             <th>Level Learned</th>
@@ -96,11 +99,23 @@ function MoveContent({ pokemonName, selectedGeneration }: MoveContentProps) {
         <tbody>
           {moves.map((move, index) => (
             <tr key={index}>
-              <td>{move.name}</td>
+              <td>{capitalizeFirstLetter(move.name)}</td>
               <td>{move.power ?? "-"}</td>
-              <td>{move.damageClass}</td>
+              <td>
+                <span title={move.damageClass}>
+                  <DamageClassIcon damageClass={move.damageClass} />
+                </span>
+              </td>
               <td>{move.accuracy ?? "-"}</td>
-              <td>{move.type}</td>
+              <td>
+                <div
+                  className={`${typesStyles.typeBackground} ${
+                    typesStyles[move.type]
+                  }`}
+                >
+                  {move.type}
+                </div>
+              </td>
               <td>{move.pp}</td>
               <td>{move.learnedAtLevel}</td>
             </tr>

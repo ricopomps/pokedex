@@ -5,7 +5,7 @@ export interface MoveInfo {
   power: number;
   pp: number;
   type: string;
-  damageClass: "special" | "physical";
+  damageClass: DamageClass;
   learnedAtLevel: number;
 }
 
@@ -14,7 +14,7 @@ export interface MoveInfoRaw {
   contest_combos: ContestCombos;
   contest_effect: ContestEffect;
   contest_type: ContestType;
-  damage_class: DamageClass;
+  damage_class: DamageClassRaw;
   effect_chance: any;
   effect_changes: any[];
   effect_entries: EffectEntry[];
@@ -65,7 +65,7 @@ export interface ContestType {
   url: string;
 }
 
-export interface DamageClass {
+export interface DamageClassRaw {
   name: string;
   url: string;
 }
@@ -184,3 +184,5 @@ export interface Type {
   name: string;
   url: string;
 }
+
+export type DamageClass = "special" | "physical" | "status";

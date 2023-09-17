@@ -45,8 +45,9 @@ export default function PokemonDetailsPage() {
             />
             <PokemonInfo pokemon={pokemon} />
             <h2>Stats:</h2>
-            <Chart chartType="bar" data={pokemon.stats} showLabelInTitle />
             <PokemonMoves pokemon={pokemon} />
+            <Chart chartType="bar" data={pokemon.stats} showLabelInTitle />
+
             <Form className="mt-4" onSubmit={handleSubmitNickname}>
               <Form.Group controlId="pokemon-nickname-input" className="mb-3">
                 <Form.Label>Give this Pokemon a nickname</Form.Label>

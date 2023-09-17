@@ -101,10 +101,7 @@ export async function setNickname(pokemon: Pokemon, nickname: string) {
   return { ...pokemon, name: nickname };
 }
 
-export async function getMoveData(
-  moveName: string,
-  generationMoves: GenerationMoves
-) {
+export async function getMoveDataRaw(moveName: string) {
   const moveDataRaw = await api.get<MoveInfoRaw>(`/move/${moveName}`);
-  return convertMoveInfo(moveDataRaw.data, generationMoves);
+  return moveDataRaw.data;
 }

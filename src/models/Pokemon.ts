@@ -395,5 +395,5 @@ export type PokemonTypeKeys = keyof typeof PokemonType;
 
 export interface GenerationMoves {
   generation: string;
-  moves: (Move & { learnedAtLevel: number })[];
+  moves: (Move & { learnedAtLevel: number; used?: boolean })[];
 }

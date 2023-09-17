@@ -1,11 +1,24 @@
 import { MoveInfo, MoveInfoRaw } from "@/models/MoveInfo";
 import { GenerationMoves } from "@/models/Pokemon";
-
 export function convertMoveInfo(
   m: MoveInfoRaw,
   generationMoves: GenerationMoves
 ): MoveInfo {
-  console.log(generationMoves);
+  const moves = generationMoves.moves;
+  function getMovelearnedAtLevel() {
+    const foundIndex = moves.findIndex(
+      (move) => move.name === m.name && !move.used
+    );
+
+    if (foundIndex !== -1) {
+      const learnedAtLevel = moves[foundIndex].learnedAtLevel;
+      moves[foundIndex].used = true;
+      return learnedAtLevel;
+    }
+
+    return 0;
+  }
+
   let moveInfo: MoveInfo = {
     id: m.id,
     name: m.name,
@@ -14,9 +27,7 @@ export function convertMoveInfo(
     pp: m.pp,
     type: m.type.name,
     damageClass: m.damage_class.name as "special" | "physical",
-    learnedAtLevel:
-      generationMoves.moves.find((move) => move.name === m.name)
-        ?.learnedAtLevel ?? 0,
+    learnedAtLevel: getMovelearnedAtLevel(),
   };
 
   if (m.past_values.length > 0) {
